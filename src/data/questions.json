@@ -1,0 +1,85 @@
+[
+  {
+    "id": 1,
+    "question": "In Sam Raimi's Spider-Man (2002), how does Peter Parker get his powers?",
+    "answers": [
+      "He's bitten by a genetically engineered spider on a school trip",
+      "He's struck by lightning in a lab experiment",
+      "He injects himself with an experimental serum",
+      "He falls into a vat of radioactive chemicals"
+    ],
+    "correctAnswerIndex": 0
+  },
+  {
+    "id": 2,
+    "question": "What is the famous moral lesson Uncle Ben teaches Peter in the Raimi trilogy?",
+    "answers": [
+      "A hero is only as good as their last fight",
+      "With great power comes great responsibility",
+      "You can't save everyone — choose wisely",
+      "Being a hero means never giving up"
+    ],
+    "correctAnswerIndex": 1
+  },
+  {
+    "id": 3,
+    "question": "In The Amazing Spider-Man (2012), who are Gwen Stacy's father and the main villain?",
+    "answers": [
+      "Nick Fury and Doctor Octopus",
+      "Captain Stacy and The Vulture",
+      "Captain Stacy and The Lizard",
+      "Commissioner Gordon and Electro"
+    ],
+    "correctAnswerIndex": 2
+  },
+  {
+    "id": 4,
+    "question": "In Into the Spider-Verse, what is Miles Morales's home universe called?",
+    "answers": ["Earth-616", "Earth-1610", "Earth-65", "Earth-42"],
+    "correctAnswerIndex": 1
+  },
+  {
+    "id": 5,
+    "question": "In Spider-Man: Homecoming, who is revealed to be Liz's father?",
+    "answers": [
+      "The Shocker",
+      "Mysterio",
+      "The Vulture (Adrian Toomes)",
+      "The Tinkerer"
+    ],
+    "correctAnswerIndex": 2
+  },
+  {
+    "id": 6,
+    "question": "In Spider-Man: Far From Home, what is Mysterio's real name and what was his job before becoming a villain?",
+    "answers": [
+      "Quentin Beck — a former Stark Industries employee",
+      "Otto Octavius — a scientist hired by Fury",
+      "Norman Osborn — a weapons developer",
+      "Adrian Toomes — an ex-military contractor"
+    ],
+    "correct": 0
+  },
+  {
+    "id": 7,
+    "question": "At the end of No Way Home, why does the world forget who Peter Parker is?",
+    "answers": [
+      "Mysterio exposes him and he goes into witness protection",
+      "He asks Doctor Strange to cast a spell making everyone forget",
+      "Tony Stark's EDITH system wipes all records of him",
+      "He fakes his own death to protect MJ"
+    ],
+    "correctAnswerIndex": 1
+  },
+  {
+    "id": 8,
+    "question": "Which three Spider-Men team up in No Way Home?",
+    "answers": [
+      "Tom Holland, Andrew Garfield, Tobey Maguire",
+      "Tom Holland, Miles Morales, Spider-Gwen",
+      "Tobey Maguire, Andrew Garfield, Spider-Man 2099",
+      "Tom Holland, Tobey Maguire, Spider-Ham"
+    ],
+    "correctAnswerIndex": 0
+  }
+]
