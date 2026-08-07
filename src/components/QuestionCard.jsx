@@ -13,6 +13,8 @@ function QuestionCard({ question, selectedAnswerIndex, onAnswer }) {
   // Compare the selected option with the correct option from the question data.
   const isCorrect = selectedAnswerIndex === question.correctAnswerIndex;
 
+  const correctAnswer = question.answers[question.correctAnswerIndex];
+
   return (
     <section>
       <h2>{question.question}</h2>
@@ -31,7 +33,13 @@ function QuestionCard({ question, selectedAnswerIndex, onAnswer }) {
           );
         })}
       </ul>
-      {hasAnswered && <p>{isCorrect ? "Correct!" : "Incorrect"}</p>}
+      {hasAnswered && (
+        <p>
+          {isCorrect
+            ? "Correct!"
+            : `Incorrect. The correct answer was: ${correctAnswer}`}
+        </p>
+      )}
     </section>
   );
 }
