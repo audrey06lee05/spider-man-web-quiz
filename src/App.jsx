@@ -12,6 +12,9 @@ function App() {
   // null means the user has not selected an answer yet.
   const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(null);
 
+  // Track the user's points across the entire quiz session.
+  const [score, setScore] = useState(0);
+
   const currentQuestion = questions[0];
 
   // Move from the start screen to the quiz screen when the user begins.
@@ -19,9 +22,18 @@ function App() {
     setCurrentScreen("quiz");
   }
 
-  // Save the index reported by the clicked answer button.
+  // Save the selected answer and award one point when it is correct.
   function handleAnswer(answerIndex) {
+    // Ignore additional answer attempts for the same question.
+    if (selectedAnswerIndex !== null) {
+      return;
+    }
+
     setSelectedAnswerIndex(answerIndex);
+
+    if (answerIndex === currentQuestion.correctAnswerIndex) {
+      setScore((currentScore) => currentScore + 1);
+    }
   }
 
   return (
@@ -32,6 +44,7 @@ function App() {
         <QuizScreen
           question={currentQuestion}
           selectedAnswerIndex={selectedAnswerIndex}
+          score={score}
           onAnswer={handleAnswer}
         />
       )}

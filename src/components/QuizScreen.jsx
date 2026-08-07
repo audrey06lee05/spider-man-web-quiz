@@ -11,7 +11,7 @@
 
 import QuestionCard from "./QuestionCard.jsx";
 
-function QuizScreen({ question, selectedAnswerIndex, onAnswer }) {
+function QuizScreen({ question, selectedAnswerIndex, score, onAnswer }) {
   return (
     <section>
       <QuestionCard
@@ -19,6 +19,7 @@ function QuizScreen({ question, selectedAnswerIndex, onAnswer }) {
         selectedAnswerIndex={selectedAnswerIndex}
         onAnswer={onAnswer}
       />
+      <p>Score: {score}</p>
     </section>
   );
 }
