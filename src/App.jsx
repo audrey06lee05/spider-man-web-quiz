@@ -27,6 +27,7 @@ function App() {
   const [results, setResults] = useState([]);
 
   function handleStart() {
+    resetQuizProgress();
     setCurrentScreen("quiz");
   }
 
@@ -71,6 +72,23 @@ function App() {
     setSelectedAnswerIndex(null);
   }
 
+  function resetQuizProgress() {
+    setSelectedAnswerIndex(null);
+    setScore(0);
+    setCurrentQuestionIndex(0);
+    setResults([]);
+  }
+
+  function handleRestart() {
+    resetQuizProgress();
+    setCurrentScreen("quiz");
+  }
+
+  function handleHome() {
+    resetQuizProgress();
+    setCurrentScreen("start");
+  }
+
   return (
     <main>
       {currentScreen === "start" && <StartScreen onStart={handleStart} />}
@@ -82,6 +100,7 @@ function App() {
           score={score}
           onAnswer={handleAnswer}
           onNext={handleNext}
+          onQuit={handleHome}
         />
       )}
 
@@ -90,6 +109,8 @@ function App() {
           results={results}
           score={score}
           totalQuestions={questions.length}
+          onRestart={handleRestart}
+          onHome={handleHome}
         />
       )}
     </main>

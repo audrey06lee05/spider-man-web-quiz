@@ -17,6 +17,7 @@ function QuizScreen({
   score,
   onAnswer,
   onNext,
+  onQuit,
 }) {
   return (
     <section>
@@ -27,6 +28,9 @@ function QuizScreen({
         onNext={onNext}
       />
       <p>Score: {score}</p>
+      <button type="button" onClick={onQuit}>
+        Quit
+      </button>
     </section>
   );
 }

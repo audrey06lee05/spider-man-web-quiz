@@ -8,7 +8,7 @@
 
 import ResultItem from "./ResultItem.jsx";
 
-function ResultsScreen({ results, score, totalQuestions }) {
+function ResultsScreen({ results, score, totalQuestions, onRestart, onHome }) {
   return (
     <section>
       <h1>Quiz Complete</h1>
@@ -20,6 +20,13 @@ function ResultsScreen({ results, score, totalQuestions }) {
           <ResultItem key={result.questionId} result={result} />
         ))}
       </ul>
+      <button type="button" onClick={onRestart}>
+        Try Again
+      </button>
+
+      <button type="button" onClick={onHome}>
+        Home
+      </button>
     </section>
   );
 }
