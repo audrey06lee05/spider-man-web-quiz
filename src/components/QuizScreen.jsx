@@ -13,6 +13,8 @@ import QuestionCard from "./QuestionCard.jsx";
 
 function QuizScreen({
   question,
+  questionNumber,
+  totalQuestions,
   selectedAnswerIndex,
   score,
   timeLeft,
@@ -21,9 +23,32 @@ function QuizScreen({
   onNext,
   onQuit,
 }) {
+  const progressPercentage = (questionNumber / totalQuestions) * 100;
+
   return (
-    <section>
-      <p>Time: {timeLeft}</p>
+    <section className="screen question-screen">
+      <header className="quiz-header">
+        <div className="question-progress">
+          <span>
+            {questionNumber} / {totalQuestions}
+          </span>
+
+          <div className="progress-bar">
+            <div
+              className="progress-fill"
+              style={{ width: `${progressPercentage}%` }}
+            />
+          </div>
+        </div>
+
+        <p>Score: {score}</p>
+        <p>Time: {timeLeft}</p>
+
+        <button type="button" onClick={onQuit}>
+          Quit
+        </button>
+      </header>
+
       <QuestionCard
         question={question}
         selectedAnswerIndex={selectedAnswerIndex}
@@ -31,10 +56,6 @@ function QuizScreen({
         onAnswer={onAnswer}
         onNext={onNext}
       />
-      <p>Score: {score}</p>
-      <button type="button" onClick={onQuit}>
-        Quit
-      </button>
     </section>
   );
 }

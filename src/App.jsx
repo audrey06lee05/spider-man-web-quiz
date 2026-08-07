@@ -149,6 +149,8 @@ function App() {
       {currentScreen === "quiz" && (
         <QuizScreen
           question={currentQuestion}
+          questionNumber={currentQuestionIndex + 1}
+          totalQuestions={questions.length}
           selectedAnswerIndex={selectedAnswerIndex}
           score={score}
           timeLeft={timeLeft}

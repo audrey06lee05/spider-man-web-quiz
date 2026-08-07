@@ -6,6 +6,8 @@
  * reused as the user progresses through the quiz.
  */
 
+const ANSWER_LABELS = ["A", "B", "C", "D"];
+
 function QuestionCard({
   question,
   selectedAnswerIndex,
@@ -29,7 +31,8 @@ function QuestionCard({
                 disabled={questionIsComplete}
                 onClick={() => onAnswer(answerIndex)}
               >
-                {answer}
+                <span>{ANSWER_LABELS[answerIndex]}</span>
+                <span>{answer}</span>
               </button>
             </li>
           );
