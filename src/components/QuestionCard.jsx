@@ -6,13 +6,9 @@
  * reused as the user progresses through the quiz.
  */
 
-function QuestionCard({ question, selectedAnswerIndex, onAnswer }) {
-  // Prevent another selection after the user has answered the question.
+function QuestionCard({ question, selectedAnswerIndex, onAnswer, onNext }) {
   const hasAnswered = selectedAnswerIndex !== null;
-
-  // Compare the selected option with the correct option from the question data.
   const isCorrect = selectedAnswerIndex === question.correctAnswerIndex;
-
   const correctAnswer = question.answers[question.correctAnswerIndex];
 
   return (
@@ -39,6 +35,11 @@ function QuestionCard({ question, selectedAnswerIndex, onAnswer }) {
             ? "Correct!"
             : `Incorrect. The correct answer was: ${correctAnswer}`}
         </p>
+      )}
+      {hasAnswered && (
+        <button type="button" onClick={onNext}>
+          Next Question
+        </button>
       )}
     </section>
   );

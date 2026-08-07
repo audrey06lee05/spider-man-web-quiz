@@ -1,3 +1,9 @@
+/**
+ * index.css
+ *
+ * Defines global box sizing, page defaults, and shared typography behaviour.
+ */
+
 * {
   box-sizing: border-box;
 }

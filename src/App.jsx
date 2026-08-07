@@ -1,30 +1,34 @@
+/**
+ * App.jsx
+ *
+ * Coordinates the quiz screens and owns state shared across the quiz session,
+ * including the current question, selected answer, and score.
+ */
+
 import { useState } from "react";
 import "./App.css";
 import StartScreen from "./components/StartScreen.jsx";
-import questions from "./data/questions.json"; // json import
+import questions from "./data/questions.json";
 import QuizScreen from "./components/QuizScreen.jsx";
 
 function App() {
-  // Track which screen is currently being shown.
   const [currentScreen, setCurrentScreen] = useState("start");
 
-  // Store the index of the answer selected for the current question.
   // null means the user has not selected an answer yet.
   const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(null);
 
-  // Track the user's points across the entire quiz session.
   const [score, setScore] = useState(0);
 
-  const currentQuestion = questions[0];
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
-  // Move from the start screen to the quiz screen when the user begins.
+  const currentQuestion = questions[currentQuestionIndex];
+
   function handleStart() {
     setCurrentScreen("quiz");
   }
 
-  // Save the selected answer and award one point when it is correct.
   function handleAnswer(answerIndex) {
-    // Ignore additional answer attempts for the same question.
+    // Prevent one question from awarding points more than once.
     if (selectedAnswerIndex !== null) {
       return;
     }
@@ -34,6 +38,21 @@ function App() {
     if (answerIndex === currentQuestion.correctAnswerIndex) {
       setScore((currentScore) => currentScore + 1);
     }
+  }
+
+  function handleNext() {
+    // Next is only valid after the current question has been answered.
+    if (selectedAnswerIndex === null) {
+      return;
+    }
+
+    // Stop at the final question until the results screen is implemented.
+    if (currentQuestionIndex >= questions.length - 1) {
+      return;
+    }
+
+    setCurrentQuestionIndex((currentIndex) => currentIndex + 1);
+    setSelectedAnswerIndex(null);
   }
 
   return (
@@ -46,6 +65,7 @@ function App() {
           selectedAnswerIndex={selectedAnswerIndex}
           score={score}
           onAnswer={handleAnswer}
+          onNext={handleNext}
         />
       )}
     </main>
