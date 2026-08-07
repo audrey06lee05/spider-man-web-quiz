@@ -11,10 +11,14 @@
 
 import QuestionCard from "./QuestionCard.jsx";
 
-function QuizScreen({ question }) {
+function QuizScreen({ question, selectedAnswerIndex, onAnswer }) {
   return (
     <section>
-      <QuestionCard question={question} />
+      <QuestionCard
+        question={question}
+        selectedAnswerIndex={selectedAnswerIndex}
+        onAnswer={onAnswer}
+      />
     </section>
   );
 }
