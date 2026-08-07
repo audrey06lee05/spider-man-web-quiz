@@ -10,6 +10,7 @@ import "./App.css";
 import StartScreen from "./components/StartScreen.jsx";
 import questions from "./data/questions.json";
 import QuizScreen from "./components/QuizScreen.jsx";
+import ResultsScreen from "./components/ResultsScreen.jsx";
 
 function App() {
   const [currentScreen, setCurrentScreen] = useState("start");
@@ -46,8 +47,8 @@ function App() {
       return;
     }
 
-    // Stop at the final question until the results screen is implemented.
     if (currentQuestionIndex >= questions.length - 1) {
+      setCurrentScreen("results");
       return;
     }
 
@@ -57,9 +58,9 @@ function App() {
 
   return (
     <main>
-      {currentScreen === "start" ? (
-        <StartScreen onStart={handleStart} />
-      ) : (
+      {currentScreen === "start" && <StartScreen onStart={handleStart} />}
+
+      {currentScreen === "quiz" && (
         <QuizScreen
           question={currentQuestion}
           selectedAnswerIndex={selectedAnswerIndex}
@@ -67,6 +68,10 @@ function App() {
           onAnswer={handleAnswer}
           onNext={handleNext}
         />
+      )}
+
+      {currentScreen === "results" && (
+        <ResultsScreen score={score} totalQuestions={questions.length} />
       )}
     </main>
   );
