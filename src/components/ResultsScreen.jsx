@@ -6,13 +6,20 @@
  * will be added as the results feature develops.
  */
 
-function ResultsScreen({ score, totalQuestions }) {
+import ResultItem from "./ResultItem.jsx";
+
+function ResultsScreen({ results, score, totalQuestions }) {
   return (
     <section>
       <h1>Quiz Complete</h1>
       <p>
         {score} / {totalQuestions}
       </p>
+      <ul>
+        {results.map((result) => (
+          <ResultItem key={result.questionId} result={result} />
+        ))}
+      </ul>
     </section>
   );
 }

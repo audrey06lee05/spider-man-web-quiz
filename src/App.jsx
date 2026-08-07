@@ -24,25 +24,40 @@ function App() {
 
   const currentQuestion = questions[currentQuestionIndex];
 
+  const [results, setResults] = useState([]);
+
   function handleStart() {
     setCurrentScreen("quiz");
   }
 
   function handleAnswer(answerIndex) {
-    // Prevent one question from awarding points more than once.
+    // Prevent one question from awarding points or recording results twice.
     if (selectedAnswerIndex !== null) {
       return;
     }
 
+    const isCorrect = answerIndex === currentQuestion.correctAnswerIndex;
+
+    const result = {
+      questionId: currentQuestion.id,
+      question: currentQuestion.question,
+      selectedAnswer: currentQuestion.answers[answerIndex],
+      correctAnswer:
+        currentQuestion.answers[currentQuestion.correctAnswerIndex],
+      isCorrect,
+      timedOut: false,
+    };
+
     setSelectedAnswerIndex(answerIndex);
 
-    if (answerIndex === currentQuestion.correctAnswerIndex) {
+    setResults((currentResults) => [...currentResults, result]);
+
+    if (isCorrect) {
       setScore((currentScore) => currentScore + 1);
     }
   }
 
   function handleNext() {
-    // Next is only valid after the current question has been answered.
     if (selectedAnswerIndex === null) {
       return;
     }
@@ -71,7 +86,11 @@ function App() {
       )}
 
       {currentScreen === "results" && (
-        <ResultsScreen score={score} totalQuestions={questions.length} />
+        <ResultsScreen
+          results={results}
+          score={score}
+          totalQuestions={questions.length}
+        />
       )}
     </main>
   );
