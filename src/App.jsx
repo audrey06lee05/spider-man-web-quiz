@@ -2,29 +2,76 @@
  * App.jsx
  *
  * Coordinates the quiz screens and owns state shared across the quiz session,
- * including the current question, selected answer, and score.
+ * including the current question, selected answer, score, results, and timer.
  */
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import StartScreen from "./components/StartScreen.jsx";
 import questions from "./data/questions.json";
 import QuizScreen from "./components/QuizScreen.jsx";
 import ResultsScreen from "./components/ResultsScreen.jsx";
 
+const TIMER_SECONDS = 20;
+
 function App() {
   const [currentScreen, setCurrentScreen] = useState("start");
-
-  // null means the user has not selected an answer yet.
   const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(null);
-
   const [score, setScore] = useState(0);
-
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [results, setResults] = useState([]);
+  const [timeLeft, setTimeLeft] = useState(TIMER_SECONDS);
+  const [hasTimedOut, setHasTimedOut] = useState(false);
 
   const currentQuestion = questions[currentQuestionIndex];
 
-  const [results, setResults] = useState([]);
+  useEffect(() => {
+    const timerShouldStop =
+      currentScreen !== "quiz" ||
+      selectedAnswerIndex !== null ||
+      hasTimedOut ||
+      timeLeft <= 0;
+
+    if (timerShouldStop) {
+      return;
+    }
+
+    const timerId = setTimeout(() => {
+      if (timeLeft === 1) {
+        const timeoutResult = {
+          questionId: currentQuestion.id,
+          question: currentQuestion.question,
+          selectedAnswer: null,
+          correctAnswer:
+            currentQuestion.answers[currentQuestion.correctAnswerIndex],
+          isCorrect: false,
+          timedOut: true,
+        };
+
+        setTimeLeft(0);
+        setHasTimedOut(true);
+        setResults((currentResults) => [
+          ...currentResults,
+          timeoutResult,
+        ]);
+        setScore((currentScore) => Math.max(0, currentScore - 1));
+
+        return;
+      }
+
+      setTimeLeft((currentTime) => currentTime - 1);
+    }, 1000);
+
+    return () => {
+      clearTimeout(timerId);
+    };
+  }, [
+    currentScreen,
+    selectedAnswerIndex,
+    hasTimedOut,
+    timeLeft,
+    currentQuestion,
+  ]);
 
   function handleStart() {
     resetQuizProgress();
@@ -33,7 +80,7 @@ function App() {
 
   function handleAnswer(answerIndex) {
     // Prevent one question from awarding points or recording results twice.
-    if (selectedAnswerIndex !== null) {
+    if (selectedAnswerIndex !== null || hasTimedOut) {
       return;
     }
 
@@ -50,7 +97,6 @@ function App() {
     };
 
     setSelectedAnswerIndex(answerIndex);
-
     setResults((currentResults) => [...currentResults, result]);
 
     if (isCorrect) {
@@ -59,7 +105,10 @@ function App() {
   }
 
   function handleNext() {
-    if (selectedAnswerIndex === null) {
+    const questionIsComplete =
+      selectedAnswerIndex !== null || hasTimedOut;
+
+    if (!questionIsComplete) {
       return;
     }
 
@@ -70,6 +119,8 @@ function App() {
 
     setCurrentQuestionIndex((currentIndex) => currentIndex + 1);
     setSelectedAnswerIndex(null);
+    setHasTimedOut(false);
+    setTimeLeft(TIMER_SECONDS);
   }
 
   function resetQuizProgress() {
@@ -77,6 +128,8 @@ function App() {
     setScore(0);
     setCurrentQuestionIndex(0);
     setResults([]);
+    setTimeLeft(TIMER_SECONDS);
+    setHasTimedOut(false);
   }
 
   function handleRestart() {
@@ -98,6 +151,8 @@ function App() {
           question={currentQuestion}
           selectedAnswerIndex={selectedAnswerIndex}
           score={score}
+          timeLeft={timeLeft}
+          hasTimedOut={hasTimedOut}
           onAnswer={handleAnswer}
           onNext={handleNext}
           onQuit={handleHome}

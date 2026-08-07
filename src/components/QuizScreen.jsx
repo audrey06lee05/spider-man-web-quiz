@@ -15,15 +15,19 @@ function QuizScreen({
   question,
   selectedAnswerIndex,
   score,
+  timeLeft,
+  hasTimedOut,
   onAnswer,
   onNext,
   onQuit,
 }) {
   return (
     <section>
+      <p>Time: {timeLeft}</p>
       <QuestionCard
         question={question}
         selectedAnswerIndex={selectedAnswerIndex}
+        hasTimedOut={hasTimedOut}
         onAnswer={onAnswer}
         onNext={onNext}
       />

@@ -6,8 +6,14 @@
  * reused as the user progresses through the quiz.
  */
 
-function QuestionCard({ question, selectedAnswerIndex, onAnswer, onNext }) {
-  const hasAnswered = selectedAnswerIndex !== null;
+function QuestionCard({
+  question,
+  selectedAnswerIndex,
+  hasTimedOut,
+  onAnswer,
+  onNext,
+}) {
+  const questionIsComplete = selectedAnswerIndex !== null || hasTimedOut;
   const isCorrect = selectedAnswerIndex === question.correctAnswerIndex;
   const correctAnswer = question.answers[question.correctAnswerIndex];
 
@@ -20,7 +26,7 @@ function QuestionCard({ question, selectedAnswerIndex, onAnswer, onNext }) {
             <li key={answer}>
               <button
                 type="button"
-                disabled={hasAnswered}
+                disabled={questionIsComplete}
                 onClick={() => onAnswer(answerIndex)}
               >
                 {answer}
@@ -29,14 +35,16 @@ function QuestionCard({ question, selectedAnswerIndex, onAnswer, onNext }) {
           );
         })}
       </ul>
-      {hasAnswered && (
+      {questionIsComplete && (
         <p>
-          {isCorrect
-            ? "Correct!"
-            : `Incorrect. The correct answer was: ${correctAnswer}`}
+          {hasTimedOut
+            ? `Time's up. The correct answer was: ${correctAnswer}`
+            : isCorrect
+              ? "Correct!"
+              : `Incorrect. The correct answer was: ${correctAnswer}`}
         </p>
       )}
-      {hasAnswered && (
+      {questionIsComplete && (
         <button type="button" onClick={onNext}>
           Next Question
         </button>
