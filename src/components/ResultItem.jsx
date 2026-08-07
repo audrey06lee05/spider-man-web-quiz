@@ -13,12 +13,16 @@ function ResultItem({ result }) {
       : "Incorrect";
 
   const selectedAnswer = result.timedOut ? "No answer" : result.selectedAnswer;
+
   return (
-    <li>
-      <p>{result.question}</p>
-      <strong>{status}</strong>
+    <li className={`result-item result-${status.toLowerCase().replace(" ", "-")}`}>
+      <div className="result-heading">
+        <p className="result-question">{result.question}</p>
+        <strong className="result-status">{status}</strong>
+      </div>
+
       {!result.isCorrect && (
-        <div>
+        <div className="result-details">
           <p>Your answer: {selectedAnswer}</p>
           <p>Correct answer: {result.correctAnswer}</p>
         </div>
