@@ -21,7 +21,7 @@ function QuestionCard({
 
   return (
     <section className="question-card">
-      <h2>{question.question}</h2>
+      <h2 className="question-text">{question.question}</h2>
       <ul className="answer-list">
         {question.answers.map((answer, answerIndex) => {
           const isCorrectAnswer =
@@ -66,16 +66,20 @@ function QuestionCard({
         })}
       </ul>
       {questionIsComplete && (
-        <p>
+        <p
+          className={`feedback-strip ${
+            !hasTimedOut && isCorrect ? "feedback-correct" : "feedback-wrong"
+          }`}
+        >
           {hasTimedOut
             ? `Time's up. The correct answer was: ${correctAnswer}`
             : isCorrect
-              ? "Correct!"
+              ? "🕷️ Correct! +1 to your score."
               : `Incorrect. The correct answer was: ${correctAnswer}`}
         </p>
       )}
       {questionIsComplete && (
-        <button type="button" onClick={onNext}>
+        <button className="btn-next" type="button" onClick={onNext}>
           Next Question
         </button>
       )}

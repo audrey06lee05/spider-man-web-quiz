@@ -10,6 +10,9 @@
  */
 
 import QuestionCard from "./QuestionCard.jsx";
+import CircularTimer from "./CircularTimer.jsx";
+
+const TIMER_SECONDS = 20;
 
 function QuizScreen({
   question,
@@ -29,7 +32,7 @@ function QuizScreen({
     <section className="screen question-screen">
       <header className="quiz-header">
         <div className="question-progress">
-          <span>
+          <span className="question-counter">
             {questionNumber} / {totalQuestions}
           </span>
 
@@ -41,10 +44,16 @@ function QuizScreen({
           </div>
         </div>
 
-        <p>Score: {score}</p>
-        <p>Time: {timeLeft}</p>
+        <p className="score-live">
+          Score <strong>{score}</strong>
+        </p>
 
-        <button type="button" onClick={onQuit}>
+        <CircularTimer
+          seconds={timeLeft}
+          totalSeconds={TIMER_SECONDS}
+        />
+
+        <button className="btn-quit" type="button" onClick={onQuit}>
           Quit
         </button>
       </header>

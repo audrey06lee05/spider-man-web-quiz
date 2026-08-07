@@ -143,7 +143,7 @@ function App() {
   }
 
   return (
-    <main>
+    <main className="app">
       {currentScreen === "start" && <StartScreen onStart={handleStart} />}
 
       {currentScreen === "quiz" && (

@@ -5,7 +5,7 @@
  * selected answer, correct answer, and timeout information.
  */
 
-function ResultItem({ result }) {
+function ResultItem({ result, questionNumber }) {
   const status = result.timedOut
     ? "Timed out"
     : result.isCorrect
@@ -16,17 +16,24 @@ function ResultItem({ result }) {
 
   return (
     <li className={`result-item result-${status.toLowerCase().replace(" ", "-")}`}>
-      <div className="result-heading">
-        <p className="result-question">{result.question}</p>
-        <strong className="result-status">{status}</strong>
-      </div>
+      <span className="result-number">Q{questionNumber}</span>
 
-      {!result.isCorrect && (
-        <div className="result-details">
-          <p>Your answer: {selectedAnswer}</p>
-          <p>Correct answer: {result.correctAnswer}</p>
+      <div className="result-content">
+        <div className="result-heading">
+          <p className="result-question">{result.question}</p>
+          <strong className="result-status">
+            {result.isCorrect ? "✓" : result.timedOut ? "⏱" : "✗"}
+            <span className="visually-hidden">{status}</span>
+          </strong>
         </div>
-      )}
+
+        {!result.isCorrect && (
+          <div className="result-details">
+            <p>Your answer: {selectedAnswer}</p>
+            <p>Correct answer: {result.correctAnswer}</p>
+          </div>
+        )}
+      </div>
     </li>
   );
 }
