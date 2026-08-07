@@ -2,5 +2,59 @@
  * App.css
  *
  * Contains styles for the quiz screens, question cards, feedback, and results.
- * Visual styling will be added after the functional quiz skeleton is complete.
+ * Answer-state styles make correct, incorrect, and inactive options clear after
+ * the user answers a question or the countdown timer reaches zero.
  */
+
+.answer-list {
+  padding: 0;
+  list-style: none;
+}
+
+.answer-button {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+  padding: 1rem;
+  border: 2px solid #dedede;
+  border-radius: 0.75rem;
+  background: white;
+  color: #222;
+  text-align: left;
+}
+
+.answer-button:disabled {
+  cursor: default;
+}
+
+.answer-label {
+  font-weight: 700;
+}
+
+.answer-text {
+  flex: 1;
+}
+
+.answer-correct {
+  border-color: #2867c7;
+  background: #edf4ff;
+  color: #2867c7;
+  opacity: 1;
+}
+
+.answer-wrong {
+  border-color: #ef2525;
+  background: #fff0f0;
+  color: #ef2525;
+  opacity: 1;
+}
+
+.answer-dimmed {
+  opacity: 0.4;
+}
+
+.answer-badge {
+  font-weight: 700;
+}

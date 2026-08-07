@@ -20,19 +20,46 @@ function QuestionCard({
   const correctAnswer = question.answers[question.correctAnswerIndex];
 
   return (
-    <section>
+    <section className="question-card">
       <h2>{question.question}</h2>
-      <ul>
+      <ul className="answer-list">
         {question.answers.map((answer, answerIndex) => {
+          const isCorrectAnswer =
+            answerIndex === question.correctAnswerIndex;
+          const isSelectedAnswer = answerIndex === selectedAnswerIndex;
+
+          let answerState = "available";
+
+          if (questionIsComplete) {
+            if (isCorrectAnswer) {
+              answerState = "correct";
+            } else if (isSelectedAnswer) {
+              answerState = "wrong";
+            } else {
+              answerState = "dimmed";
+            }
+          }
+
           return (
             <li key={answer}>
               <button
                 type="button"
+                className={`answer-button answer-${answerState}`}
                 disabled={questionIsComplete}
                 onClick={() => onAnswer(answerIndex)}
               >
-                <span>{ANSWER_LABELS[answerIndex]}</span>
-                <span>{answer}</span>
+                <span className="answer-label">
+                  {ANSWER_LABELS[answerIndex]}
+                </span>
+                <span className="answer-text">{answer}</span>
+
+                {questionIsComplete && isCorrectAnswer && (
+                  <span className="answer-badge">✓ Correct</span>
+                )}
+
+                {questionIsComplete && isSelectedAnswer && !isCorrectAnswer && (
+                  <span className="answer-badge">✗ Wrong</span>
+                )}
               </button>
             </li>
           );
